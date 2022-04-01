@@ -27,7 +27,7 @@ placeRoute.post("/new", asyncCatch (async (req, res) => {
       image: req.body.image,
     });
     await p.save();
-    req.flash('success','niub')
+    req.flash('success','U have suceesifully added a new location')
     res.redirect(`/quietplaces/${p._id}`);
   
   

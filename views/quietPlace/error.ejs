@@ -1,0 +1,24 @@
+<% layout('/layouts/boilerplate') %> 
+
+
+<body>
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">
+                
+            </h4>
+            <p>Error occur!</p>
+            <hr>
+            <p class="mb-0" style="white-space:pre-line">Please try again later and check the server status.
+                Or contact us via email: cirowencs@gmail.com
+
+                We apologize for any inconvenience.
+                <p><%=err.stack %> </p>
+                
+            </p>
+        </div>
+    </div>
+    
+</div>
+</body>

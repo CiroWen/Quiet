@@ -1,0 +1,77 @@
+<% layout('/layouts/boilerplate') %> 
+<body>
+    <form action="/quietplaces/<%=p._id%>/edit?_method=PUT" method="POST" class="needs-validation mb-3" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%=p.name %>" required>
+          <div id="Help" class="form-text">The name of the quiet place that you want to add</div>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">Please enter the name of the place</div>
+        </div>
+        <div class="mb-3">
+          <label for="city" class="form-label">City</label>
+          <input type="text" class="form-control" id="city" name="city" value="<%=p.city%>" required>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">Please enter the city of the place</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="text" class="form-control" id="image" name="image" value="<%=p.image%>" onchange="imgPre()" required>
+            <button type="submit" class="btn btn-dark mt-3">Submit</button>
+            <div id="Help" class="form-text">Url of the image</div>
+            <div class="valid-feedback">Good!</div>
+            <div class="invalid-feedback">Please provide a picture of the place</div>
+            <div class="mb-2 mt-2"><img src="" width="500px"id="imgPreview">
+            
+          </div>
+        
+      </form>
+      <!-- previous scratch of edit page -->
+    <!-- <form action="/quietplaces/new" method="POST">
+    
+    <form action="/quietplaces/<%=p._id%>/edit?_method=PUT" method="POST">
+    <div>
+        <label for="name">The Name of the Quiet Place</label>
+        <input type="text" id="name" name="name" value="<%=p.name %> ">
+    </div> 
+    <div>
+        <label for="city">The City of the Quiet Place</label>
+        <input type="text" id="city" name="city" value="<%=p.city%>">
+    </div>
+        <button>Submit!</button>
+    </form> -->
+    <script>
+        // Image previou system
+        const imgDiv = document.getElementById("imgPreview");
+            if(document.getElementById("image").value){
+                imgDiv.src= document.getElementById("image").value
+            }
+            const imgPre = () =>{
+            const url = document.getElementById("image").value;
+            console.log(url);
+            // const imgDiv = document.getElementById("imgPreview");
+            imgDiv.src = url
+        }
+
+        (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+    </script>
+</body>
+

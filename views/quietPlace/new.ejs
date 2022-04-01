@@ -1,0 +1,64 @@
+<% layout('/layouts/boilerplate') %>
+
+    <body>
+        <h2 class="text-center">Share a quiet place!</h2>
+        <form action="/quietplaces/new" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <div id="Help" class="form-text">The name of the quiet place that you want to add</div>
+                <div class="valid-feedback">Good!</div>
+                <div class="invalid-feedback">Please enter the name of the place</div>
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" required>
+                <div class="valid-feedback">Good!</div>
+                <div class="invalid-feedback">Please enter the city of the place</div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="text" class="form-control" id="image" name="image" onchange="imgPre()" required>
+                <!-- onchange="imgPre()"  -->
+                <div id="Help" class="form-text">Url of the imgae</div>
+                <div><img src="" width="500px" id="imgPreview" alt=""></div>
+                <div class="valid-feedback">Good!</div>
+                <div class="invalid-feedback">Please provide a picture of the place</div>
+            </div>
+            
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
+        <!-- <form action="/quietplaces/new" method="POST"> -->
+        <!-- previous scratch setup -->
+        <!-- <div>
+        <label for="name">The Name of the Quiet Place</label>
+        <input type="text" id="name" name="name">
+    </div>
+    <div>
+        <label for="city">The City of the Quiet Place</label>
+        <input type="text" id="city" name="city">
+    </div>
+        <button>Submit!</button>
+    </form> -->
+        <script>
+            // Image previou system
+            const imgDiv = document.getElementById("imgPreview");
+            if (document.getElementById("image").value) {
+                imgDiv.src = document.getElementById("image").value
+            }
+            const imgPre = () => {
+                const url = document.getElementById("image").value;
+                console.log(url);
+                const imgDiv = document.getElementById("imgPreview");
+                imgDiv.src = url
+            }
+
+
+        // function imgPre(){
+        //     const url = document.getElementById("image").value;
+        //     console.log(url);
+        //     const imgDiv = document.getElementById("imgPreview");
+        //     imgDiv.src = url
+        // }
+        </script>
+    </body>

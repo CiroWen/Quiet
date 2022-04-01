@@ -1,0 +1,74 @@
+<% layout('/layouts/boilerplate') %>
+
+  <div class="row ">
+    <div class="col-8  mb-5">
+      <div class="card  embed-responsive embed-responsive-16by9">
+        <img src="<%=p.image%>" class="card-img-top embed-responsive-item"  alt="...">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%=p.name%>
+          </h5>
+          <p class="card-text">
+            <%=p.city%>
+          </p>
+          <p class="card-text">
+            <%=p.description%>
+          </p>
+          <a class="card-link btn btn-warning" href="/quietplaces/<%=p._id%>/edit">Edit Place</a>
+          <form class="d-inline" action="/quietplaces/<%=p._id%>/delete?_method=DELETE" method="POST">
+            <button class="btn btn-danger"> Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4 mb-3">
+      <div class="card mb-3">
+        <div class="card-body">
+      <h2 class="card-title">Leave a review</h2>
+      <form action="/quietplaces/<%=p._id%>/reviews" method="POST">
+        <div class="mb-3">
+          <label class="form-label" for="rating">Rating</label>
+          <input type="range" class="form-range" min=1 max=5 name="review[rate]">
+        </div>
+        <div class="mb-3">
+          <label for="body" class="form-label">Review</label>
+          <textarea placeholder="Your impression for this place?" class="form-control" name="review[body]" id="body"
+            cols="30" rows="5"></textarea>
+        </div>
+        <button class="btn-success btn mb-3">Submit</button>
+      </form>
+    </div>
+    </div>
+      <%for(let r of p.reviews){ %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">
+              Rating: <%=r.rating %>
+            </h5>
+            <p class="card-text">
+              Review: <%=r.body %>
+            </p>
+            <form action="/quietplaces/<%=p._id%>/reviews/<%=r._id%>/delete?_method=DELETE" method="POST">
+              <button class="btn btn-danger btn-sm">Remove</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
+    </div>
+  </div>
+
+  <!-- previous scratch of detail page -->
+  <!-- <body>
+    <h1>name: <%=p.name%> </h1>
+    <h2>location: <%=p.city%> </h2>
+    <img src="<%=p.image%> " alt="" >
+    <h3><%=p.description%> </h3>
+    <h2><a href="/quietplaces">Home Page</a></h2>
+    <h2><a href="/quietplaces/<%=p._id %>/edit">Edit Place</a></h2>
+    
+    <h2><form action="/quietplaces/<%=p._id%>/delete?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </h2>
+</body> -->

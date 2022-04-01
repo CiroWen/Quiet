@@ -1,0 +1,42 @@
+<%-layout('/layouts/boilerplate') %> 
+
+<% for(let place of p) {%> 
+<div class="row">
+    <div class="col-8 offset-2 mb-5">
+        <div class="card">
+            <img src="<%=place.image%>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%=place.name%> </h5>
+              <p class="card-text"><%=place.description%> </p>
+              <a href="quietplaces/<%=place.id%>" class="btn btn-primary">View <%=place.name%></a>
+            </div>
+          </div>
+    </div>
+</div>
+<% } %> 
+
+
+
+
+<!-- previous  -->
+<!-- <body> -->
+    <!-- <h1>Quiet Places</h1>
+    <h2><a href="quietplaces/new">Upload a new quiet place</a></h2>    
+        <% for(let place of p) {%> 
+            <div class="card mb-3" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-fluid" alt="" src="<%=place.image%>">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%=place.name%></h5>
+                            <p class="card-text"><%=place.description%></p>
+                            <a href="quietplaces/<%=place.id%>" class="btn btn-primary">View <%=place.name%></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        <% } %>  -->
+<!-- </body> -->

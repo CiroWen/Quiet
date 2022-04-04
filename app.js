@@ -70,8 +70,6 @@ app.use("/quietplaces/:id/reviews", reviewRoute);
 app.use('/user', userRoute)
 // // home page of Quiet
 app.get("/", (req, res) => {
-  // throw new Error("sorry");
-  // error catching test
   res.render("home.ejs");
 });
 

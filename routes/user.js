@@ -14,8 +14,11 @@ userRoute.post(
       const { email, username, password } = req.body;
       const user = new User({ email, username });
       const registeredUser = await User.register(user, password);
-      req.flash("success", "You have successifully registered! Welcome!");
-      res.redirect("/quietplaces");
+      req.login(registeredUser, (err) => {
+        if (err) return next(err);
+        req.flash("success", "You have successifully registered! Welcome!");
+        res.redirect("/quietplaces");
+      });
     } catch (e) {
       req.flash("error", e.message);
       res.redirect("/quietplaces");
@@ -32,13 +35,16 @@ userRoute.post(
   passport.authenticate("local", { failureFlash: true, failureRedirect: "/user/login" }),
   (req, res) => {
     req.flash("success", "Welcome back!");
-    res.redirect("/quietplaces");
+    const ogUrl = req.session.bkUrl || "/quietplaces"
+    console.log('in login post');
+    res.redirect(ogUrl);
   }
 );
 
 userRoute.get("/logout", (req, res) => {
+  // console.log(req.user);
   req.logOut();
-  req.flash('success', "You have successifully logged out.")
-  res.redirect('/quietplaces')
+  req.flash("success", "You have successifully logged out.");
+  res.redirect("/quietplaces");
 });
 module.exports = userRoute;

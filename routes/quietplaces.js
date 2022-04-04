@@ -2,6 +2,7 @@ const express = require("express");
 const placeRoute = express.Router();
 const asyncCatch = require("../utils/AsyncCatch");
 const QuietLoc = require("../models/quietLoc");
+const isLoggedIn = require('../utils/middleware')
 
 
 // content page with all current quiet places
@@ -10,16 +11,11 @@ placeRoute.get("/", async (req, res) => {
   res.render("quietPlace/index.ejs", { p });
 });
 // page for adding new quiet place
-placeRoute.get("/new", (req, res) => {
-  // console.log(req.body);
-  try {
-    res.render("quietPlace/new.ejs");
-  } catch (e) {
-    next(e);
-  }
+placeRoute.get("/new", isLoggedIn,  (req, res) => {
+  res.render('quietPlace/new')
 });
 // handle post request on adding new place
-placeRoute.post("/new", asyncCatch (async (req, res) => {
+placeRoute.post("/new", isLoggedIn,asyncCatch (async (req, res) => {
     //   console.log(`${req.body} reqbody here`);
     const p = new QuietLoc({
       name: req.body.name,
@@ -50,7 +46,7 @@ placeRoute.get(
 );
 
 // edit page
-placeRoute.get("/:id/edit", async (req, res) => {
+placeRoute.get("/:id/edit", isLoggedIn, asyncCatch(async (req, res) => {
   const id = req.params.id;
   const p = await QuietLoc.findById(id);
   if(!p){
@@ -60,9 +56,9 @@ placeRoute.get("/:id/edit", async (req, res) => {
   //   const p = await QuietLoc.findById(req.params.id);
   //   console.log('get edit here');
   res.render("quietPlace/edit.ejs", { p });
-});
+}));
 // handle put request on edit page
-placeRoute.put("/:id/edit", async (req, res, next) => {
+placeRoute.put("/:id/edit", isLoggedIn,async (req, res, next) => {
   // console.log(req.body);
   // console.log(req.params);
   // under put method, has access to both req.body and req.params
@@ -79,11 +75,12 @@ placeRoute.put("/:id/edit", async (req, res, next) => {
     next();
   }
 });
-placeRoute.delete("/:id/delete", async (req, res) => {
+placeRoute.delete("/:id/delete", isLoggedIn, asyncCatch(async (req, res) => {
   let { id } = req.params;
   await QuietLoc.findByIdAndDelete(id);
   console.log(`deleted ID :${id}`);
   res.redirect("/quietplaces");
-});
+}));
+
 
 module.exports = placeRoute;

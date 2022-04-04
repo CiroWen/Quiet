@@ -14,11 +14,11 @@ userRoute.post(
       const { email, username, password } = req.body;
       const user = new User({ email, username });
       const registeredUser = await User.register(user, password);
-      req.flash('success', 'You have successifully registered! Welcome!')
+      req.flash("success", "You have successifully registered! Welcome!");
       res.redirect("/quietplaces");
     } catch (e) {
-      req.flash('error', e.message)
-      res.redirect('/quietplaces')
+      req.flash("error", e.message);
+      res.redirect("/quietplaces");
     }
   })
 );
@@ -29,9 +29,16 @@ userRoute.get("/login", (req, res) => {
 
 userRoute.post(
   "/login",
-  passport.authenticate("local", { failureFlash: true, failureRedirect: "/user/login" }, (req, res) => {
-    req.flash('success', 'Welcome back!')
+  passport.authenticate("local", { failureFlash: true, failureRedirect: "/user/login" }),
+  (req, res) => {
+    req.flash("success", "Welcome back!");
     res.redirect("/quietplaces");
-  })
+  }
 );
+
+userRoute.get("/logout", (req, res) => {
+  req.logOut();
+  req.flash('success', "You have successifully logged out.")
+  res.redirect('/quietplaces')
+});
 module.exports = userRoute;

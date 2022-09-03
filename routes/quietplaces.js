@@ -1,5 +1,5 @@
 const express = require("express");
-const placeRoute = express.Router();
+const placeRoute = express.Router(); //add
 const asyncCatch = require("../utils/AsyncCatch");
 const QuietLoc = require("../models/quietLoc");
 const isLoggedIn = require('../utils/middleware')

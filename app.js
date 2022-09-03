@@ -59,6 +59,8 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// middleware
 app.use((req, res,next) => {
   res.locals.currentUser = req.user
   res.locals.success = req.flash('success')
@@ -77,6 +79,7 @@ app.get("/fake", async (req, res) => {
   const user = new User({ email: "wewewe@gmail.com", username: "hihi" });
   const newU = await User.register(user, "hihi");
   res.send(newU);
+  
 });
 
 // error handling middleware

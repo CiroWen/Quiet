@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require("express"); //web framework
 const app = express();
-const path = require("path");
-const mongoose = require("mongoose");
-const methodOverride = require("method-override");
+const path = require("path"); //directory management
+const mongoose = require("mongoose"); //connect to MongoDb
+const methodOverride = require("method-override"); //allows 
 const asyncCatch = require("./utils/AsyncCatch");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");

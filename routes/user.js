@@ -1,3 +1,6 @@
+/**
+ * Route for user
+ */
 const express = require("express");
 const User = require("../models/user");
 const userRoute = express.Router();
@@ -32,11 +35,14 @@ userRoute.get("/login", (req, res) => {
 
 userRoute.post(
   "/login",
-  passport.authenticate("local", { failureFlash: true, failureRedirect: "/user/login" }),
+  passport.authenticate("local", {
+    failureFlash: true,
+    failureRedirect: "/user/login",
+  }),
   (req, res) => {
     req.flash("success", "Welcome back!");
-    const ogUrl = req.session.bkUrl || "/quietplaces"
-    console.log('in login post');
+    const ogUrl = req.session.bkUrl || "/quietplaces";
+    console.log("in login post");
     res.redirect(ogUrl);
   }
 );

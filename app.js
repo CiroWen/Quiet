@@ -1,8 +1,8 @@
-const express = require("express"); //web framework
+const express = require("express"); //web framework.
 const app = express();
-const path = require("path"); //directory management
-const mongoose = require("mongoose"); //connect to MongoDb
-const methodOverride = require("method-override"); //allows 
+const path = require("path"); //for building directory, join() swap \ / based on different OS
+const mongoose = require("mongoose"); //driver to connect MongoDb
+const methodOverride = require("method-override"); //a middleware that allows client-side to make  PUT and DELETE request via form
 const asyncCatch = require("./utils/AsyncCatch");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
@@ -27,6 +27,8 @@ const sessionConfig = {
   },
 };
 
+// Mongo CLI
+// 
 mongoose.connect("mongodb://localhost:27017/quiet", {
   // ?what are these params doing here
   useNewUrlParser: true,
@@ -54,11 +56,12 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session(sessionConfig));
 app.use(flash())
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+app.use(passport.initialize()); 
+app.use(passport.session()); // identify users
+passport.use(new LocalStrategy(User.authenticate())); //
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 // middleware
 app.use((req, res,next) => {
@@ -71,15 +74,19 @@ app.use("/quietplaces", placeRoute);
 app.use("/quietplaces/:id/reviews", reviewRoute);
 app.use('/user', userRoute)
 // // home page of Quiet
-app.get("/", (req, res) => {
-  res.render("home.ejs");
+app.all("/", (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  console.log('=================================');
+  console.log(res.body);
+  // res.render("home.ejs");
 });
 
+// for testing purpose, shortcut making account
 app.get("/fake", async (req, res) => {
-  const user = new User({ email: "wewewe@gmail.com", username: "hihi" });
-  const newU = await User.register(user, "hihi");
+  const user = new User({ email: "1@gmail.com", username: "1" });
+  const newU = await User.register(user, "1");
   res.send(newU);
-  
 });
 
 // error handling middleware
@@ -93,6 +100,7 @@ app.get("/fake", async (req, res) => {
 app.all("*", (req, res, next) => {
   next(new ExpressError("page is down", 404));
 });
+// simply error handling of page not found, (without a router)
 app.use((err, req, res, next) => {
   const { status = 500, msg = "Unknown error occurred, please try again or contact us." } = err;
   res.status(status).render("quietPlace/error", { err });

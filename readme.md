@@ -6,6 +6,12 @@ Quiet Place is a website that provides a platform for users to view, share, and 
 
 ---
 
+### Start guide
+1. npm i
+2. mongod
+3. node app.js
+4. localhost:3000
+
 ### Tech stack
 
 - Express 
@@ -14,15 +20,13 @@ Quiet Place is a website that provides a platform for users to view, share, and 
 - Node.js
 - MongoDb
 - Passport.js
-- Nodemon.js
+- Session.js
 
 ### To be figured out (search in the code to locate the questions)
 
-- // ?what are these params doing here
-- ejs-mate, we used a different engine while at school
-- method-override, is there a better way to enable put request from client side?
-- flash, look into how is implemented
-- passport, the require/import order is kind of messing around with each other, session, passport, localstrategy, sessionConfig.
+- ejs-mate, differences compared to ejs(what we learned in college)
+- method-override, is there a better way to enable put and delete request from client side?, how is it implemented
+- passport, the require/import order is kind of messing around with each other, session, passport, localstrategy, sessionConfig, figure out why the order matters, and what potential risks might be if there are other dependencies came in
 - 用户的注册, 登入与登出 是由什么控制的, 怎么实现的..
 - 各个页面的关系, 怎么串联起来的.
 - 数据库的写入, 是怎么实现的.

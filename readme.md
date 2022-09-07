@@ -7,7 +7,7 @@ Quiet Place is a website that provides a platform for users to view, share, and 
 ---
 
 ### Start guide
-1. npm i
+1. npm install
 2. mongod
 3. node app.js
 4. localhost:3000

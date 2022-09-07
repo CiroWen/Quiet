@@ -38,7 +38,7 @@ userRoute.post(
   passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/user/login",
-  }),
+  }), //second params as middleware
   (req, res) => {
     req.flash("success", "Welcome back!");
     const ogUrl = req.session.bkUrl || "/quietplaces";
